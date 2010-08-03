@@ -2,7 +2,8 @@ var path = require("path")
   , fs = require("fs")
 
 exports.getMain=function getMain(folder) {
-	return JSON.parse(fs.readFileSync(path.join(folder,"package.json"))).main
+	var pack=JSON.parse(fs.readFileSync(path.join(folder,"package.json")))
+	return pack.main || (pack.scripts?pack.scripts.lib:false) || "."
 }
 
 exports.getFiles=function getFiles(folder) {
@@ -23,7 +24,7 @@ exports.getFiles=function getFiles(folder) {
 			files.push([file,buff])
 		}
 		else if(file.slice(-5)==".node") {
-			var buff=fs.readFileSync(file).toString()
+			var buff=fs.readFileSync(file,'binary').toString()
 			var arr=[]
 			for(var i=0;i<buff.length;i++) {
 				arr[i]=buff.charCodeAt(i)
@@ -34,11 +35,11 @@ exports.getFiles=function getFiles(folder) {
 	return files
 }
 
-var folder=process.argv[2]
+var folder=process.argv[2] || "."
 function ziptie(folder) {
 	var files = exports.getFiles(folder)
 	var fd = fs.openSync('output.js','w')
-	var buff=fs.readFileSync("../faux_require.js").toString()
+	var buff=fs.readFileSync(path.join(path.dirname(__filename),"./faux_require.js")).toString()
 	fs.writeSync(fd,buff)
 	fs.writeSync(fd,";\n")
 	//add the files to the statics

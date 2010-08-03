@@ -1,5 +1,5 @@
 require("./blah")
 console.log("WTF")
-console.log(">>"+String(require("../overload").Proxy))
+console.log(">>"+String(require("../overload").Watchable))
 var fs = require("fs")
 fs.writeFileSync('require bail test','fs got!')

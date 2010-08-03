@@ -11,7 +11,7 @@ require = function(script_path) {
 
  	//test .js
  	var check={'.':true,'$':true,'/':true,'~':true}
- 	console.log("script_path :"+path_chain)
+ 	//console.log("script_path :"+path_chain)
  	if(check[script_path.charAt(0)]) {
 		var file = path.join(path.dirname(path_chain[path_chain.length-1]),script_path)
  		//if(path_chain.length<2) file='/'+file
@@ -52,7 +52,7 @@ require = function(script_path) {
 			path_chain.pop()
 			return module.exports
 		}
-		console.log(script_path)
+		//console.log(script_path)
 		if(file in static_scripts) {
 			script_path = path.join(script_path)
 			return evaluate()
@@ -78,7 +78,7 @@ require = function(script_path) {
 			return native_evaluate()
 		}
  	}
- 	console.log("script_path :"+script_path+': '+(script_path.charAt(0)=='.'))
+ 	//console.log("script_path :"+script_path+': '+(script_path.charAt(0)=='.'))
  	try{
  	return _require(script_path)
  	}
