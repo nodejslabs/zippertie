@@ -50,7 +50,7 @@ function ziptie(folder) {
 		fs.writeSync(fd,buff)
 		fs.writeSync(fd,';\n')
 	})
-	fs.writeSync(fd,";module.exports = require('/"+exports.getMain(folder)+"');\n")
+	fs.writeSync(fd,";module.exports = require('"+exports.getMain(folder)+"');\n")
 	//fs.writeFileSync("output.js",output,"utf8")
 }
 ziptie(folder)
