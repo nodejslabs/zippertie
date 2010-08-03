@@ -1,2 +1,5 @@
 node ziptie.js [directory]
 --packs all .js and .node files into a single output.js
+
+TODO:
+require.async?

@@ -6,6 +6,11 @@ exports.getMain=function getMain(folder) {
 	return pack.main || (pack.scripts?pack.scripts.lib:false) || "."
 }
 
+exports.getName=function getMain(folder) {
+	var pack=JSON.parse(fs.readFileSync(path.join(folder,"package.json")))
+	return pack.name || path.basename(folder)
+}
+
 exports.getFiles=function getFiles(folder) {
 	var file,files=[]
 	//recursively add all .node/.js
@@ -38,7 +43,7 @@ exports.getFiles=function getFiles(folder) {
 var folder=process.argv[2] || "."
 function ziptie(folder) {
 	var files = exports.getFiles(folder)
-	var fd = fs.openSync('output.js','w')
+	var fd = fs.openSync(exports.getName(folder)+'.js','w')
 	var buff=fs.readFileSync(path.join(path.dirname(__filename),"./faux_require.js")).toString()
 	fs.writeSync(fd,buff)
 	fs.writeSync(fd,";\n")
